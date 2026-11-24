@@ -122,31 +122,53 @@
 
 ## 2025-11-24 | Frontend Stack
 
-**Decision:** React 18+ with Vite 5+. TypeScript strict. Map renderer decision deferred to M5.
+**Decision:** React 18+ with Vite 5+. TypeScript strict. Map renderer: MapLibre GL JS (free, OSM tiles).
 
 **Alternatives:**
 - Next.js — rejected: SSR not needed; adds complexity
 - Svelte/Solid — rejected: team familiarity with React
 - Create React App — rejected: deprecated
 
-**Rationale:** Vite provides fast HMR, native TypeScript, simple config. React ecosystem for map libraries.
+**Rationale:** Vite provides fast HMR, native TypeScript, simple config. MapLibre has React bindings and works with free OSM tiles.
 
 **Status:** ✅ Documented; implementation in M5
 
 ---
 
-## 2025-11-24 | Map Rendering (Deferred to M5)
+## 2025-11-24 | Maps & Places: Free OSM Ecosystem (Not Google Maps Platform)
 
-**Decision:** Choose between Google Maps JavaScript API and MapLibre GL + compliant tile provider in M5.
+**Decision:** Use OpenStreetMap ecosystem for all maps/places/routing — no Google Maps Platform (avoids mandatory billing).
+- **Geocoding/Places:** Nominatim (OSM) — free, requires User-Agent, rate limit 1 req/s
+- **Routing:** OSRM (car/bike/foot) + Valhalla (multi-modal, transit) — free public instances
+- **Map Rendering:** MapLibre GL JS + free vector tiles (OpenMapTiles, CartoDB, Protomaps)
+- **Tile Attribution:** © OpenStreetMap contributors (required)
 
 **Alternatives:**
-- Leaflet — rejected: limited vector tile support, older API
-- Mapbox GL — rejected: requires Mapbox account, pricing complexity
-- Custom OSM tiles — rejected: "Do not scrape map tiles or assume public OSM demo services are production infrastructure"
+- Google Maps Platform — rejected: mandatory billing account, $200/mo credit but requires credit card, SKU complexity
+- Mapbox — rejected: requires account, pricing tiers
+- Self-hosted tiles — rejected: operational overhead for M0–M7
 
-**Rationale:** Must use production-ready tile infrastructure. Decision depends on Google Maps Platform billing approval and tile provider evaluation.
+**Rationale:** User requirement for free APIs. OSM ecosystem provides sufficient coverage for planning-only MVP. Nominatim/OSRM/Valhalla public instances have fair-use limits suitable for development and low-traffic production.
 
-**Status:** ⏳ Deferred to M5
+**Status:** ✅ Decided; implementation in M2 (adapters) and M5 (map rendering)
+
+---
+
+## 2025-11-24 | Flights: Amadeus Test Environment (Free Tier)
+
+**Decision:** Use Amadeus Flight Offers Search **test environment** for M2–M7. Production access deferred.
+
+**Alternatives:**
+- Amadeus Production — rejected: contract-based pricing, business review required
+- AviationStack / FlightAware — rejected: paid tiers, limited free calls
+- OpenSky Network — rejected: no flight search/offers, only tracking
+- Scraping airline sites — rejected: fragile, ToS violations
+
+**Rationale:** Amadeus test env is free (~2,000 calls/month), provides structured flight offers, and uses same API contract as production. Sufficient for development and demo. Production migration is config-only (base URL + credentials).
+
+**Limitations:** Test data is cached/limited (~100 carriers, no LCCs, no booking). Must document data source and retrieval time per non-negotiable rule.
+
+**Status:** ✅ Decided; implementation in M2
 
 ---
 

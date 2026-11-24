@@ -1,8 +1,10 @@
-# Research: Google Maps Platform APIs (Places, Geocoding, Routes)
+# Research: Google Maps Platform APIs (Places, Geocoding, Routes) — **NOT SELECTED**
 
-**Research Date:** 2025-11-24  
-**Researcher:** Pi Subagent (training knowledge, cutoff ~2024) — web_search tool unavailable  
-**Status:** Requires live verification against official documentation — **Human approval required before any paid test**
+**Research Date:** 2025-11-24
+**Researcher:** Pi Subagent (training knowledge, cutoff ~2024) — web_search tool unavailable
+**Status:** **Rejected** — User requirement for free APIs only. Google Maps Platform requires mandatory billing account.
+
+See `research/osm-ecosystem.md` for selected free alternative.
 
 ---
 

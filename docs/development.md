@@ -17,8 +17,10 @@ This document lists the environment variables used by the application. **Never c
 ### Open-Meteo (Weather)
 - `OPEN_METEO_BASE_URL`
 
-### Google Maps (Places / Geocoding)
-- `GOOGLE_MAPS_API_KEY`
+### OpenStreetMap / OSM Ecosystem (Places / Geocoding / Routing)
+- `NOMINATIM_USER_AGENT` — Required by Nominatim usage policy (identify your app)
+- `OSRM_BASE_URL` — Optional, default: `https://router.project-osrm.org`
+- `VALHALLA_BASE_URL` — Optional, for advanced routing
 
 ### Application
 - `PORT` — HTTP server port (default: 3000)
@@ -32,16 +34,18 @@ NVIDIA_API_KEY=your-key-here
 NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
 NVIDIA_MODEL_ID=meta/llama-3.1-70b-instruct
 
-# Amadeus
+# Amadeus (Test Environment - Free)
 AMADEUS_CLIENT_ID=your-client-id
 AMADEUS_CLIENT_SECRET=your-client-secret
 AMADEUS_BASE_URL=https://test.api.amadeus.com
 
-# Open-Meteo
+# Open-Meteo (Free, No Auth)
 OPEN_METEO_BASE_URL=https://api.open-meteo.com/v1
 
-# Google Maps
-GOOGLE_MAPS_API_KEY=your-api-key
+# OpenStreetMap Ecosystem (Free)
+NOMINATIM_USER_AGENT=TripPilot/1.0 (your-email@example.com)
+OSRM_BASE_URL=https://router.project-osrm.org
+VALHALLA_BASE_URL=https://valhalla1.openstreetmap.de
 
 # App
 PORT=3000

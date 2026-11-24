@@ -41,9 +41,9 @@
           ┌───────────────────────┼───────────────────────┐
           ▼                       ▼                       ▼
    ┌─────────────┐         ┌─────────────┐         ┌─────────────┐
-   │  Amadeus    │         │  Open-Meteo │         │  Google     │
-   │  Flights    │         │  Weather    │         │  Maps       │
-   │  (M2)       │         │  (M2)       │         │  (M2)       │
+   │  Amadeus    │         │  Open-Meteo │         │  OSM /      │
+   │  Flights    │         │  Weather    │         │  Nominatim  │
+   │  (Test Env) │         │  (M2)       │         │  + OSRM     │
    └─────────────┘         └─────────────┘         └─────────────┘
 ```
 
@@ -62,8 +62,8 @@
 | LLM Provider | NVIDIA NIM / API Catalog | — | M3 |
 | Flight Data | Amadeus Flight Offers Search | v2 | M2 |
 | Weather | Open-Meteo Forecast + Geocoding | v1 | M2 |
-| Places/Routes | Google Maps Platform (New) | v1 | M2 |
-| Map Rendering | Google Maps JS API or MapLibre | — | M5 |
+| Places/Routes | OpenStreetMap / Nominatim + OSRM / Valhalla | v1 | M2 |
+| Map Rendering | MapLibre GL + OSM tiles (CartoDB, OpenMapTiles) | — | M5 |
 | Database | PostgreSQL | 16+ | M8 (optional) |
 | Containerization | Docker Compose | — | M8 |
 | CI/CD | GitHub Actions | — | M0 |
@@ -104,10 +104,10 @@ Tool Call    Tool Call      (LLM proposes → Backend validates → Executes)
     ▼           ▼
 ┌─────────────────────────────────────┐
 │        PROVIDER ADAPTERS            │
-│  - Amadeus: flight search           │
+│  - Amadeus (Test): flight search    │
 │  - Open-Meteo: weather forecast     │
-│  - Google Maps: places, geocoding,  │
-│    routes                           │
+│  - Nominatim: geocoding / places    │
+│  - OSRM / Valhalla: routing         │
 └─────────────────────────────────────┘
     │           │
     ▼           ▼
@@ -276,16 +276,16 @@ class ToolExecutor {
 | Secret | Storage | Access |
 |--------|---------|--------|
 | `NVIDIA_API_KEY` | Environment variable | Backend only (LLM client) |
-| `AMADEUS_CLIENT_ID/SECRET` | Environment variable | Backend only (Amadeus adapter) |
-| `GOOGLE_MAPS_API_KEY` | Environment variable | Backend (Places/Geocoding/Routes) + Frontend (Map rendering, restricted key) |
+| `AMADEUS_CLIENT_ID/SECRET` | Environment variable | Backend only (Amadeus test adapter) |
 | `OPEN_METEO_BASE_URL` | Environment variable | Backend only (no auth needed) |
+| `NOMINATIM_USER_AGENT` | Environment variable | Backend only (required by policy) |
 
 **Rules:**
 - Never commit `.env` or secrets
 - Use `.env.local` for development (gitignored)
 - Separate keys for dev/staging/production
 - Rotate on exposure
-- Frontend map key: HTTP referrer restricted to app domain
+- No map API keys needed (MapLibre + free OSM tiles)
 
 ---
 
