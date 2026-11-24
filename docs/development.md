@@ -29,10 +29,11 @@ This document lists the environment variables used by the application. **Never c
 ## Example `.env.local`
 
 ```bash
-# NVIDIA (Free Tier)
+# NVIDIA (Free Tier - Verified Working 2025-11-24)
 NVIDIA_API_KEY=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
 NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
-NVIDIA_MODEL_ID=meta/llama-3.1-70b-instruct
+NVIDIA_MODEL_ID=nvidia/nemotron-3.5-bolt-e4b  # Verified: streaming + function calling
+# Alternative: moonshotai/kimi-k3.1-pro (1M context, VLM)
 
 # Duffel Sandbox (Free Test Environment for Flight Offers)
 DUFFEL_ACCESS_TOKEN=your-duffel-sandbox-token

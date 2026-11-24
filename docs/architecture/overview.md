@@ -59,7 +59,7 @@
 | Validation | Zod | 3.x | M1 |
 | Frontend | React | 18+ | M5 |
 | Build Tool | Vite | 5+ | M5 |
-| LLM Provider | NVIDIA NIM / API Catalog | — | M3 |
+| LLM Provider | NVIDIA API Catalog (Nemotron 3.5 Bolt / Kimi K3.1 Pro) | — | M3 |
 | Flight Data | OpenFlights (static) + Duffel Sandbox (test) + Mock Offers | — | M2 |
 | Weather | Open-Meteo Forecast + Geocoding | v1 | M2 |
 | Places/Routes | OpenStreetMap / Nominatim + OSRM / Valhalla | v1 | M2 |
@@ -282,6 +282,7 @@ class ToolExecutor {
 | `OPEN_METEO_BASE_URL` | Environment variable | Backend only (no auth needed) |
 | `NOMINATIM_USER_AGENT` | Environment variable | Backend only (required by policy) |
 | `AVIATIONSTACK_API_KEY` | Environment variable | Backend only (optional, schedules) |
+| **Verified Model** | `nvidia/nemotron-3.5-bolt-e4b` | Streaming ✅, Tools ✅ |
 
 **Rules:**
 - Never commit `.env` or secrets

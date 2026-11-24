@@ -80,14 +80,17 @@
 
 **Decision:** OpenAI-compatible client against NVIDIA API Catalog endpoint. Backend owns tool registry/executor; LLM only proposes tool calls.
 
+**Verified Model (2025-11-24):** `nvidia/nemotron-3.5-bolt-e4b` — Streaming ✅, Function Calling ✅
+**Alternative:** `moonshotai/kimi-k3.1-pro` — 1M context, VLM, tools advertised
+
 **Alternatives:**
 - NVIDIA NIM self-hosted — rejected: operational overhead for M0–M7
 - Direct NVIDIA SDK — rejected: OpenAI-compatible is standard, portable
 - LangChain / Vercel AI SDK — rejected: adds abstraction layer; backend must control tool execution
 
-**Rationale:** "Use an OpenAI-compatible client only after verifying the selected endpoint's actual base URL, model ID, streaming support and tool/function-calling support." Tool calls are proposals; backend validates and authorizes.
+**Rationale:** "Use an OpenAI-compatible client only after verifying the selected endpoint's actual base URL, model ID, streaming support and tool/function-calling support." Tool calls are proposals; backend validates and authorizes. **Live verification completed.**
 
-**Status:** 🔬 Research in M0; implementation in M3
+**Status:** ✅ Verified; implementation in M3
 
 ---
 
