@@ -29,15 +29,18 @@ This document lists the environment variables used by the application. **Never c
 ## Example `.env.local`
 
 ```bash
-# NVIDIA
-NVIDIA_API_KEY=your-key-here
+# NVIDIA (Free Tier)
+NVIDIA_API_KEY=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
 NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
 NVIDIA_MODEL_ID=meta/llama-3.1-70b-instruct
 
-# Amadeus (Test Environment - Free)
-AMADEUS_CLIENT_ID=your-client-id
-AMADEUS_CLIENT_SECRET=your-client-secret
-AMADEUS_BASE_URL=https://test.api.amadeus.com
+# Duffel Sandbox (Free Test Environment for Flight Offers)
+DUFFEL_ACCESS_TOKEN=your-duffel-sandbox-token
+DUFFEL_BASE_URL=https://api.duffel.com
+
+# AviationStack (Optional - Free Tier: 100 req/mo for schedules)
+AVIATIONSTACK_API_KEY=your-aviationstack-key
+AVIATIONSTACK_BASE_URL=http://api.aviationstack.com/v1
 
 # Open-Meteo (Free, No Auth)
 OPEN_METEO_BASE_URL=https://api.open-meteo.com/v1

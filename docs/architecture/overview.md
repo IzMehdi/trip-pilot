@@ -41,9 +41,9 @@
           ┌───────────────────────┼───────────────────────┐
           ▼                       ▼                       ▼
    ┌─────────────┐         ┌─────────────┐         ┌─────────────┐
-   │  Amadeus    │         │  Open-Meteo │         │  OSM /      │
-   │  Flights    │         │  Weather    │         │  Nominatim  │
-   │  (Test Env) │         │  (M2)       │         │  + OSRM     │
+   │  OpenFlights│         │  Open-Meteo │         │  OSM /      │
+   │  + Duffel   │         │  Weather    │         │  Nominatim  │
+   │  Sandbox    │         │  (M2)       │         │  + OSRM     │
    └─────────────┘         └─────────────┘         └─────────────┘
 ```
 
@@ -60,7 +60,7 @@
 | Frontend | React | 18+ | M5 |
 | Build Tool | Vite | 5+ | M5 |
 | LLM Provider | NVIDIA NIM / API Catalog | — | M3 |
-| Flight Data | Amadeus Flight Offers Search | v2 | M2 |
+| Flight Data | OpenFlights (static) + Duffel Sandbox (test) + Mock Offers | — | M2 |
 | Weather | Open-Meteo Forecast + Geocoding | v1 | M2 |
 | Places/Routes | OpenStreetMap / Nominatim + OSRM / Valhalla | v1 | M2 |
 | Map Rendering | MapLibre GL + OSM tiles (CartoDB, OpenMapTiles) | — | M5 |
@@ -104,7 +104,9 @@ Tool Call    Tool Call      (LLM proposes → Backend validates → Executes)
     ▼           ▼
 ┌─────────────────────────────────────┐
 │        PROVIDER ADAPTERS            │
-│  - Amadeus (Test): flight search    │
+│  - OpenFlights: airport/route data  │
+│  - Duffel Sandbox: flight offers    │
+│  - Mock: estimated pricing (dev)    │
 │  - Open-Meteo: weather forecast     │
 │  - Nominatim: geocoding / places    │
 │  - OSRM / Valhalla: routing         │
@@ -276,9 +278,10 @@ class ToolExecutor {
 | Secret | Storage | Access |
 |--------|---------|--------|
 | `NVIDIA_API_KEY` | Environment variable | Backend only (LLM client) |
-| `AMADEUS_CLIENT_ID/SECRET` | Environment variable | Backend only (Amadeus test adapter) |
+| `DUFFEL_ACCESS_TOKEN` | Environment variable | Backend only (Duffel sandbox) |
 | `OPEN_METEO_BASE_URL` | Environment variable | Backend only (no auth needed) |
 | `NOMINATIM_USER_AGENT` | Environment variable | Backend only (required by policy) |
+| `AVIATIONSTACK_API_KEY` | Environment variable | Backend only (optional, schedules) |
 
 **Rules:**
 - Never commit `.env` or secrets

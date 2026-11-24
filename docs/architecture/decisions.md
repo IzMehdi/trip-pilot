@@ -154,19 +154,24 @@
 
 ---
 
-## 2025-11-24 | Flights: Amadeus Test Environment (Free Tier)
+## 2025-11-24 | Flights: OpenFlights Static + Duffel Sandbox + Mock Offers
 
-**Decision:** Use Amadeus Flight Offers Search **test environment** for M2–M7. Production access deferred.
+**Decision:** Amadeus self-service ended July 2026. Use:
+- **OpenFlights/OurAirports** static data (bundled) — airport, airline, route validation
+- **Duffel Sandbox** — free test environment for flight search/offers/booking flow (test data only)
+- **Mock Offers** — deterministic estimated pricing for development (distance-based, clearly labeled)
+- **AviationStack** (optional) — free tier 100/mo for schedule data
 
 **Alternatives:**
-- Amadeus Production — rejected: contract-based pricing, business review required
-- AviationStack / FlightAware — rejected: paid tiers, limited free calls
-- OpenSky Network — rejected: no flight search/offers, only tracking
-- Scraping airline sites — rejected: fragile, ToS violations
+- AviationStack paid — rejected: no free offers, only schedules
+- RapidAPI flight APIs — rejected: unreliable, scraping-based
+- Kiwi Tequila — rejected: no free tier
+- OpenSky — rejected: tracking only
+- Scraping — rejected: fragile, ToS
 
-**Rationale:** Amadeus test env is free (~2,000 calls/month), provides structured flight offers, and uses same API contract as production. Sufficient for development and demo. Production migration is config-only (base URL + credentials).
+**Rationale:** No free live flight offers API exists. Static data covers airport/route validation. Duffel sandbox enables integration testing of search→offer→book flow. Mock offers unblock M2–M5 development. All data clearly labeled per non-negotiable rule.
 
-**Limitations:** Test data is cached/limited (~100 carriers, no LCCs, no booking). Must document data source and retrieval time per non-negotiable rule.
+**Limitations:** No live pricing in MVP. Mock offers are estimates only. Duffel sandbox uses test data.
 
 **Status:** ✅ Decided; implementation in M2
 
